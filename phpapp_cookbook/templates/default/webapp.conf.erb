@@ -3,7 +3,7 @@ AddHandler php5-script php
 
 <VirtualHost *:80>
    ServerName <%= @params[:server_name] %>
-   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
+   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end if (!@params[:server_aliases].nil? && @params[:server_aliases].class == Array)  %>
    DocumentRoot <%= @params[:docroot] %>
 
    <Directory <%= @params[:docroot] %>>

@@ -2,8 +2,10 @@ LoadModule php5_module modules/libphp5.so
 AddHandler php5-script php
 
 <VirtualHost *:80>
-   ServerName <%= @params[:server_name] %>
-   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end if (!@params[:server_aliases].nil? && @params[:server_aliases].class == Array)  %>
+   ServerName <%= (@params[:server_name] != '') ? @params[:server_name] : @params[:application_name] %>
+   <% if @params[:server_aliases] && !@params[:server_aliases].empty? %>
+     ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
+   <% end %>
    DocumentRoot <%= @params[:docroot] %>
 
    <Directory <%= @params[:docroot] %>>
